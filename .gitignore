@@ -1,0 +1,2 @@
+# Exclude all mp4 files inside the videos folder
+/videos/*.mp4
