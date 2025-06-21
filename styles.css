@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'DetroitComic';
+  src:  url('./fonts/Detroitwof2.woff2') format('woff2'),
+        url('./fonts/Detroitwof.woff2') format('woff');
+       
+       
+  font-weight: normal;
+ 
+  font-style: normal;  /* ← important fix */
+   font-display: block;  /* ← optional, improves performance */
+}
+
+.font-detroit {
+  font-family: 'DetroitComic', sans-serif;
+}

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<!-- Project: thereelstore.in  -->
+<!--Developed by Nilesh Nath - https://github.com/NileshNathGit -->
+<!-- Date:May 2025 -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Reel Store | Cut By Creators! Scaled By Code!</title>
+    <meta name="description" content="Creative agency specializing in reels, posters, and short films for brands and influencers">
+    
+    
+    <link rel="preload" href="/fonts/Detroitwof2.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+    <!-- intl-tel-input CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Custom Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#f4f0dd', //Creame begie
+                        dark: '#f44336', //ORANGE
+                        light: '#f4f0dd', //Cream biege
+                        //black = black
+                        yellow: '#F6DB32',
+                        arrow:'#a2a26f'
+                        
+                    },
+                    fontFamily: {
+                        sans: ['DetroitComic'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 50%;
+            object-fit: cover;
+            z-index: -1;
+            opacity: 0.4;
+        }
+        .section-title {
+            position: relative;
+            display: inline-block;
+            scroll-margin-top: 96px;
+        }
+       
+        @media (max-width: 768px) {
+    .section-title {
+      scroll-margin-top: 60px; 
+    }
+  }
+        .instagram-media {
+            background: transparent !important;
+        }
+        .video-slider {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 10px;
+    padding-bottom: 20px;
+  }
+
+  .video-slider video {
+    flex: 0 0 300px;
+    scroll-snap-align: center;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .pagination {
+    text-align: center;
+  }
+
+  .pagination-dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin: 0 6px;
+    background-color: gray;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .pagination-dot.active {
+    background-color: #f44336; /* brand red */
+  }
+  button:disabled {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.iti {
+  width: 100%;
+  position: relative;
+}
+.iti__country-list {
+  max-height: 250px;
+  width: 90vw !important;       /* Keep it within screen width */
+  max-width: 320px;             
+  box-sizing: border-box;
+  overflow-y: auto;
+  border-radius: 12px;
+}
+.iti input {
+  padding-top: 0.75rem;    
+  padding-bottom: 0.75rem;
+  padding-left: 3.2rem;    
+  border-radius: 9999px;   
+  background-color: primary; 
+  color: black;
+}
+
+.iti input:focus {
+  outline: none;
+ 
+}
+.glow-text {
+  text-shadow: 0 0 5px #f87171, 0 0 10px #f87171, 0 0 20px #f87171;
+}
+body, html {
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+    </style>
+</head>
+<body class="bg-dark text-black  font-sans" >
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-dark backdrop-blur-sm z-50 text-primary">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" aria-label="Go to Home section" class="hover:scale-[1.3] transition-transform duration-500 ease-out">
+                    <img src="assets/onlylogo.png" alt="The Reel Store Logo" class="w-10" />
+                </a>
+    
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="font-detroit hover:text-yellow hover:scale-[1.08] transition-transform duration-500 ease-out">Home</a>
+                    <a href="#services" class="font-detroit hover:text-yellow hover:scale-[1.08] transition-transform duration-500 ease-out">Services</a>
+                    <a href="#portfolio" class="font-detroit hover:text-yellow hover:scale-[1.08] transition-transform duration-500 ease-out">Portfolio</a>
+                    <a href="#about" class="font-detroit hover:text-yellow hover:scale-[1.08] transition-transform duration-500 ease-out">About</a>
+                    <a href="#contact" class="font-detroit hover:text-yellow hover:scale-[1.08] transition-transform duration-500 ease-out">Contact</a>
+                </div>
+                
+                <button class="md:hidden focus:outline-none" id="menu-toggle">
+                    <svg class="w-6 h-6 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div class="md:hidden hidden pt-4" id="mobile-menu">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="font-detroit hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">Home</a>
+                    <a href="#services" class="font-detroit hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">Services</a>
+                    <a href="#portfolio" class="font-detroit hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">Portfolio</a>
+                    <a href="#about" class="font-detroit hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">About</a>
+                    <a href="#contact" class="font-detroit hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-dark min-h-screen flex items-center justify-center px-8">
+        <div class="max-w-7xl w-full flex flex-col md:flex-row items-center justify-between">
+          
+          <!-- LEFT: Logo -->
+          <div class="mb-6 md:mb-0 md:w-1/2 flex scale-[1.01] justify-center items-center 
+            hover:scale-[1.09] transition-transform duration-500 ease-[cubic-bezier(0.42, 0, 1, 1)]">
+            <img src="assets/onlylogo.png" alt="The Reel Store Logo" 
+                  class="w-52 sm:w-64 md:w-72 lg:w-80 xl:w-96 2xl:w-[28rem] h-auto object-contain" />
+          </div>
+          
+          <!-- RIGHT: Text and Buttons -->
+          <div class="text-primary md:w-1/2 text-center md:text-left mt-8 md:mt-0">
+            <p class="text-3xl md:text-5xl lg:text-6xl font-detroit mb-6 leading-tight">
+              <span class="block">Cut by creators!</span>
+              <span class="block">Scaled by code!</span>
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start mt-8">
+              <a href="#contact" class="font-detroit bg-primary text-black px-8 py-3 font-bold text-center  
+                              hover:border-black hover:bg-[#F6DB32] transition transform hover:scale-110 active:scale-95
+                              hover:shadow-lg active:shadow-md">
+                                GET STARTED
+              </a>
+              <a href="#services" class="font-detroit border border-light text-primary px-8 py-3 font-bold text-center 
+                                        hover:bg-[#F6DB32] hover:text-black transition 
+                                        hover:scale-110 active:scale-95 hover:shadow-lg active:shadow-md">
+                            OUR SERVICES
+              </a>
+            </div>
+          </div>
+      
+        </div>
+      </section>
+      
+
+    <!-- Services Section -->
+    <section id="services" class="py-20" style="background-color: #000000;">
+        <div class="container mx-auto px-6">
+            <h2 class="font-detroit text-3xl md:text-4xl font- mb-16 section-title" style="color: #f34f36; text-shadow: 1px 1px 2px rgba(151, 151, 151, 0.4);">Our Services</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Service 1 -->
+                <div class="font-detroit bg-primary text-black p-8 border-l-4 border-dark rounded-2xl shadow-md transition-all transform hover:bg-dark hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">
+                    <div class="text-primary text-4xl mb-4">🎬</div>
+                    <h3 class="text-2xl font- mb-3">Branding Services</h3>
+                    <p class="text-black">1. Brand strategy & positioning
+                                        <p class="text-black">2. Logo & visual identity design</p>  
+                                       <p class="text-black">3. Brand messaging & storytelling</p>   
+                                        <p class="text-black">4. Brand guidelines</p>  
+</p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="font-detroit bg-primary text-black p-8 border-l-4 border-primary rounded-2xl shadow-md transition-all transform hover:border-dark hover:bg-dark hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">
+                    <div class="text-primary text-4xl mb-4">📈</div>
+                    <h3 class="text-2xl font- mb-3">Digital Marketing Services</h3>
+                    <p class="text-black">1. Social media strategy & execution
+                    <p class="text-black">2. Performance marketing (ads, SEO, email)</p>
+                    <p class="text-black">3. Content creation (reels, blogs, influencer collabs)</p>
+                    <p class="text-black">4. Analytics, optimization & ROI tracking</p>
+                    <p class="text-black">5. Marketing powered by AI tools & insights</p>
+</p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="font-detroit bg-primary text-black p-8 border-l-4 border-primary rounded-2xl shadow-md transition-all transform hover:border-dark hover:bg-dark hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">
+                    <div class="text-primary text-4xl mb-4">📰</div>
+                    <h3 class="text-2xl font- mb-3">Creative Production</h3>
+                    <p class="text-black">1. Reels & short-form videos</p> <br>
+                     <p class="text-black">2. Brand films & product shoots</p>
+                      <p class="text-black">3. Graphic design, posters & ad creatives</p>
+                       <p class="text-black">4. Custom designs for web & social</p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="font-detroit bg-primary text-black p-8 border-l-4 border-primary rounded-2xl shadow-md transition-all transform hover:border-dark hover:bg-dark hover:text-primary hover:scale-[1.08] transition-transform duration-500 ease-out">
+                    <div class="text-primary text-4xl mb-4">🧠</div>
+                    <h3 class="text-2xl font- mb-3">Social Media Growth & Management</h3>
+                    <p class="text-black">Managing your brand’s social presence with strategic posting, engagement, and trend-savvy tactics to boost your reach and impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-black" >
+        <div class="container mx-auto px-6">
+            <h2 class="font-detroit text-3xl md:text-4xl font-italic mb-16 section-title" style="color: #f34f36; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);">Portfolio</h2>
+            
+            <!-- Instagram Embed -->
+            <div class="mb-20">
+                <h3 class="font-detroit text-2xl font- mb-8 text-center text-primary">Recent Projects</h3>
+               
+                <div class="video-slider" id="videoSlider">
+                    <video controls autoplay loop muted class="w-[360px] h-[640px] object-contain rounded-lg shadow-md bg-black" tabindex="0">
+                      <source src="videos/charminar.mp4" type="video/mp4" />
+                    </video>
+                    <video controls autoplay loop muted class="w-[360px] h-[640px] object-contain rounded-lg shadow-md bg-black" tabindex="0">
+                      <source src="videos/travelante.mp4" type="video/mp4" />
+                    </video>
+                    <video controls autoplay loop muted class="w-[360px] h-[640px] object-contain rounded-lg shadow-md bg-black" tabindex="0">
+                      <source src="videos/mustang.mp4" type="video/mp4" />
+                    </video>
+                    <video controls autoplay loop muted class="w-[360px] h-[640px] object-contain rounded-lg shadow-md bg-black" tabindex="0">
+                      <source src="videos/LehReel.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                  <div class="pagination block md:hidden" id="paginationDots"></div>
+            </div>
+            <script>
+                const slider = document.getElementById('videoSlider');
+                const videos = slider.querySelectorAll('video');
+                const pagination = document.getElementById('paginationDots');
+              
+                //  video count
+                videos.forEach((_, i) => {
+                  const dot = document.createElement('span');
+                  dot.classList.add('pagination-dot');
+                  if (i === 0) dot.classList.add('active');
+                  dot.addEventListener('click', () => {
+                    videos[i].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+                  });
+                  pagination.appendChild(dot);
+                });
+              
+                const dots = pagination.querySelectorAll('.pagination-dot');
+              
+                // active dot based on centered video
+                slider.addEventListener('scroll', () => {
+                  let center = slider.scrollLeft + slider.offsetWidth / 2;
+                  let closestIndex = 0;
+                  let closestDistance = Infinity;
+              
+                  videos.forEach((video, i) => {
+                    const videoCenter = video.offsetLeft + video.offsetWidth / 2;
+                    const distance = Math.abs(center - videoCenter);
+                    if (distance < closestDistance) {
+                      closestDistance = distance;
+                      closestIndex = i;
+                    }
+                  });
+              
+                  dots.forEach(dot => dot.classList.remove('active'));
+                  dots[closestIndex].classList.add('active');
+                });
+              </script>
+            
+            
+            <div>
+  <h3 class="font-detroit text-2xl font- mb-8 text-center text-[#f4f0dd]">Featured Films</h3>
+  
+  <!-- Slider container -->
+  <div class="relative">
+    <!-- Left arrow -->
+    <button id="prevBtn" aria-label="Previous"
+    class="absolute left-[-20px] top-1/2 -translate-y-1/2 
+           bg-gradient-to-l from-transparent via-transparent to-red-500 
+           hover:from-red-800 hover:bg-gradient-to-r from-dark via-red-500 to-red-600 hover:scale-105
+           text-white z-10 
+           disabled:opacity-40 disabled:cursor-not-allowed 
+           h-12 w-12 rounded-l-md rounded-r-md flex items-center justify-center
+           transition-transform duration-500 ease-out
+">❬
+  </button>
+
+  <!-- Right arrow -->
+  <button id="nextBtn" aria-label="Next"
+    class="absolute right-0 top-1/2 -translate-y-1/2 
+           bg-gradient-to-r from-transparent via-transparent to-red-500 
+           hover:from-red-800 hover:bg-gradient-to-l from-dark via-red-500 to-red-600 hover:scale-105
+           text-white z-10 
+           disabled:opacity-40 disabled:cursor-not-allowed 
+           h-12 w-12 rounded-l-md rounded-r-md flex items-center justify-center
+           transition-transform duration-500 ease-out">
+    ❭
+  </button>
+
+    <!-- Videos track -->
+    <div id="sliderTrack" class="flex overflow-x-auto overflow-y-hidden scroll-smooth no-scrollbar">
+      <!-- Video tiles -->
+      <div class="video-tile min-w-[90vw] sm:min-w-[60vw] md:min-w-[45vw] lg:min-w-[35vw] px-2">
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+            <div class="youtube-player absolute top-0 left-0 w-full h-full rounded-lg" data-video-id="Xdz22Skzn7c"></div>
+        </div>
+      </div>
+      <!-- Video 2 -->
+      <div class="video-tile min-w-[90vw] sm:min-w-[60vw] md:min-w-[45vw] lg:min-w-[35vw] px-2">
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+           <div class="youtube-player absolute top-0 left-0 w-full h-full rounded-lg" data-video-id="Xdz22Skzn7c"></div>
+        </div>
+      </div>
+      
+       <div class="video-tile min-w-[90vw] sm:min-w-[60vw] md:min-w-[45vw] lg:min-w-[35vw] px-2">
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+           <div class="youtube-player absolute top-0 left-0 w-full h-full rounded-lg" data-video-id="Xdz22Skzn7c"></div>
+        </div>
+      </div>
+      <!-- Video 3 -->
+      
+       <div class="video-tile min-w-[90vw] sm:min-w-[60vw] md:min-w-[45vw] lg:min-w-[35vw] px-2">
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+           <div class="youtube-player absolute top-0 left-0 w-full h-full rounded-lg" data-video-id="Xdz22Skzn7c"></div>
+        </div>
+      </div>
+      <!-- Video 4 -->
+       
+       <div class="video-tile min-w-[90vw] sm:min-w-[60vw] md:min-w-[45vw] lg:min-w-[35vw] px-2">
+        <div class="relative aspect-video rounded-lg overflow-hidden shadow-lg">
+           <div class="youtube-player absolute top-0 left-0 w-full h-full rounded-lg" data-video-id="Xdz22Skzn7c"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    #sliderTrack {
+  height: 250px; 
+}
+
+#prevBtn, #nextBtn {
+  height: 250px;
+  width: 50px;
+  font-size: 2rem; /* arrow size */
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+  #sliderTrack {
+    height: 140px;  /* slider on mobile */
+  }
+
+  #prevBtn, #nextBtn {
+    height: 150px;
+    width: 35px;
+    font-size: 1.5rem; /* smaller arrow */
+  }
+}
+
+  /* Hide scrollbar for all browsers */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+</style>
+ 
+</div>
+            
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-black" >
+        <div class="container mx-auto px-6">
+            <h2 class="font-detroit text-3xl md:text-4xl font-italic mb-16 section-title" style="color: #f34f36; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);">Who we are</h2>
+            
+            <div class="font-detroit grid md:grid-cols-2 gap-12 items-center text-black">
+                <div>
+                    <h3 class="text-xl font- text-yellow mb-6">A Collective of Storytellers</h3>
+                    <p class="font-detroit text-primary mb-6">
+                        At The Reel Store, we turn bold ideas into content that hits hard and feels real — 
+                        from scroll-stopping reels to striking visuals and campaigns that actually connect.
+                    </p>
+                    <p class="font-detroit text-primary mb-6">
+                        Based in Hyderabad, we're a creative studio with a cinematic soul and a digital brain.
+                         We believe every brand has a story — and we're here to tell it with heart, honesty, 
+                         and high impact.
+                    </p>
+                    <p class="text-primary mb-6">
+                        Whether you're launching or scaling, we work closely with you to craft content that doesn’t
+                         just “perform” — it moves people. We bring emotion to your product and creativity to 
+                         every pixel.
+                    </p>
+                    <p class="text-primary mb-6">
+                        But we’re not just redefining content — we’re rebuilding culture. No corporate chains, 
+                        no dull desks. We're creating a joyful, free, and fearless workspace where people 
+                        love what they do and feel it every day.
+                    </p>
+                    <p class="text-primary ">
+                              This isn’t just marketing.</p>
+                    <p class="text-primary  "> 
+                              It’s a movement. </p>
+                             <p class="text-primary  ">
+                               We are The Reel Store. </p>
+                </div>
+                
+                <div class="font-detroit grid grid-cols-2 gap-4">
+                    <div class="bg-[#f4f0dd] p-6 border border-red-500/30">
+                        <h4 class="font-bold text-[#FF4831] mb-2">8+</h4>
+                        <p class="text-sm text-black">Years combined experience</p>
+                    </div>
+                    <div class="bg-[#f4f0dd] p-6 border border-red-500/30">
+                        <h4 class="font-bold text-[#FF4831] mb-2">70+</h4>
+                        <p class="text-sm text-black">Projects delivered</p>
+                    </div>
+                    <div class="bg-[#f4f0dd] p-6 border border-red-500/30">
+                        <h4 class="font-bold text-[#FF4831] mb-2">4M+</h4>
+                        <p class="text-sm text-black">Views</p>
+                    </div>
+                    <div class="bg-[#f4f0dd] p-6 border border-red-500/30">
+                        <h4 class="font-bold text-[#FF4831] mb-2">100%</h4>
+                        <p class="text-sm text-black">Client satisfaction</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Team -->
+            <div class="mt-20">
+                <h3 class="font-detroit text-2xl font- mb-12 text-center text-[#f4f0dd]">Meet The Team</h3>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Team Member 1 -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/mohan.png" alt="Mohan" class="w-full h-full object-cover">
+                        </div>
+                        <h4 class="text-[#f4f0dd] font- text-xl">Mohan Arilli</h4>
+                        <p class="text-[#FF4831] mb-2">Creative Director</p>
+                    </div>
+                    
+                    <!-- Team Member 2 -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/emoji.png" alt="Alolika" class="w-full h-full object-cover">
+                            <div class="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">📱</div>
+                        </div>
+                        <h4 class="text-[#f4f0dd] text-xl">Alolika Dutta Roy</h4>
+                        <p class="text-[#FF4831] mb-2">Marketing Manager</p>
+                        
+                    </div>
+                    
+                    <!-- Team Member 3  -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/emoji.png" alt="YamunaM" class="w-full h-full object-cover">
+                            <div class="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🎞️</div>
+                        </div>
+                        <h4 class="text-[#f4f0dd] text-xl">Yamuna Mandakuruti</h4>
+                        <p class="text-[#FF4831] mb-2">Digital Marketer & Team Lead</p>
+                        
+                    </div> 
+                    <!-- Team Member 4  -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/emoji.png" alt="Harini" class="w-full h-full object-cover">
+                            <div class="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🎞️</div>
+                        </div>
+                        <h4 class="text-[#f4f0dd] text-xl">Harini</h4>
+                        <p class="text-[#FF4831] mb-2">Content Writer & Strategist</p>
+                    </div> 
+                    <!-- Team Member 5  -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/nileshYE.jpg" alt="Nilesh" class="w-full h-full object-cover">
+                            <div class="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🎞️</div>
+                        </div>
+                        <h4 class="text-[#f4f0dd] text-xl ">Nilesh Nath</h4>
+                        <p class="text-[#FF4831] mb-2">Head of Web Development</p>
+                    </div> 
+
+                    <!-- Team Member 6  -->
+                    <div class="font-detroit text-center">
+                        <div class="w-40 h-40 mx-auto mb-4 rounded-full bg-red-500/10 border border-red-500/30 overflow-hidden hover:scale-[1.3] active:scale-95
+                            hover:shadow-lg active:shadow-md transition-transform duration-500 ease-out">
+                            <!-- Placeholder for team member image -->
+                            <img src="images/emoji.png" alt="team6" class="w-full h-full object-cover">
+                            <div class="w-full h-full bg-gray-800 flex items-center justify-center text-4xl">🎞️</div>
+                        </div>
+                        <h4 class="text-[#f4f0dd] text-xl">Susan Nahek</h4>
+                        <p class="text-[#FF4831] mb-2">Graphic Designer & Video Editor</p>
+                    </div> 
+
+                    
+
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <h2 class="font-detroit text-3xl md:text-4xl font-italic mb-16 section-title" style="color: #f34f36; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);">Get in touch</h2>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Contact Form -->
+                <div>
+                    <form action="https://formspree.io/f/xvgajkld" method="POST" class="space-y-6" id="contactForm">
+                      <!-- Prefix -->
+                      <div>
+                      <label for="nameInput" class="font-detroit text-[#f4f0dd] block mb-2">Your Name</label>
+                      <div class="flex space-x-2">
+                        <!-- Dropdown prefix -->
+                        <select id="prefix" class="font-detroit bg-primary border border-gray-500 px-3 py-3 rounded-full shadow-lg focus:outline-none focus:border-primary text-dark">
+                           <option value="Ms.">Ms.</option>
+                          <option value="Mr.">Mr.</option>
+                         
+                          
+                        </select>
+
+                        <!-- Text input for name -->
+                        <input type="text" id="nameInput" placeholder="Your awesome name goes here" required
+                          class="font-detroit flex-grow min-w-0 w-0 bg-primary border border-gray-500 px-4 py-3 rounded-full shadow-lg focus:outline-none focus:border-primary text-black" />
+                      </div>
+                    </div>
+
+                      <!-- Phone -->
+                      <div>
+                        <label for="phone" class="font-detroit text-[#f4f0dd] block mb-2">Phone Number</label>
+                        <input id="phone" type="tel"  required class="font-detroit w-full bg-primary border border-gray-500 px-4 py-3 rounded-full shadow-lg focus:outline-none focus:border-primary" placeholder="We promise no spam, just creativity!" />
+                        <div id="phone-error" class="font-detroit text-red-500 mt-1 hidden glow-text">Invalid number</div>
+                      </div>
+
+                      <!-- Email -->
+                      <div>
+                        <label for="email" class="font-detroit text-[#f4f0dd] block mb-2">Email </label>
+                        <input type="email" id="email" name="Email" required class="font-detroit w-full bg-primary border border-gray-700 px-4 py-3 focus:outline-none rounded-full shadow-lg focus:border-primary" placeholder="Just in case you're ghosting calls! 👻">
+                      </div>
+
+                      <!-- Service -->
+                      <div>
+                        <label for="service" class="font-detroit text-[#f4f0dd] block mb-2">Service Interested in</label>
+                        <select id="service" name="service" required class="font-detroit text-[#FF4831] w-full bg-primary border border-gray-700 rounded-full shadow-lg px-4 py-3 focus:outline-none focus:border-primary">
+                          <option value="">Select a Service</option>
+                          <option value="Content Creation & Production">Content Creation & Production</option>
+                          <option value="Digital Marketing & Campaign Strategy">Digital Marketing & Campaign Strategy</option>
+                          <option value="Content Creator Management">Content Creator Management</option>
+                          <option value="Social Media Growth & Management">Social Media Growth & Management</option>
+                        </select>
+                      </div>
+
+                      <!-- Message -->
+                      <div>
+                        <label for="message" class="font-detroit text-primary block mb-2">Any Creative Thoughts 💭</label>
+                        <textarea id="message" name="Description" rows="5" 
+                        class="font-detroit w-full bg-primary border rounded-md shadow-lg border-gray-700 
+                        px-4 py-3 focus:outline-none focus:border-primary text-black"
+                         placeholder="Pour your heart out!, we are listening"></textarea>
+                      </div>
+
+                      <!-- Anti-spam + Hidden formatted fields -->
+                      <input type="hidden" name="_gotcha" style="display:none" />
+                      <input type="hidden" name="Phone" id="full_phone" />
+                      <input type="hidden" name="Name" id="full_name" />
+                      
+                      <!-- Submit -->
+                      <button type="submit" class="font-detroit text-dark bg-primary rounded-full shadow-lg px-8 py-3 font-bold w-full 
+  hover:text-primary hover:bg-dark hover:scale-[1.03] 
+  active:scale-95 
+  transition-transform duration-500 ease-out transition">
+                        SWOOSH! ᯓ★
+                      </button>
+                      <div id="successPopup" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex 
+                                                items-center justify-center z-50 hidden transition duration-300">
+                        <div class="bg-primary text-black px-6 py-8 rounded-xl shadow-lg text-center max-w-sm mx-auto">
+                          
+                          <h2 class="font-detroit text-2xl font-bold mb-2">💌 Yeet!</h2>
+                         
+                          <p class="font-detroit text-s text-dark italic">We gotchu — stay tuned 🔥</p>
+                        </div>
+                      </div>
+                      
+                    </form>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="font-detroit text-[#f4f0dd] text-2xl font- mb-6">Ready to create something unforgettable?</h3>
+                    <p class="font-detroit text-[#f4f0dd]   mb-8">
+                        Whether you're a brand looking to stand out or an influencer wanting to level up your content, we'd love to hear about your project.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="text-primary mr-4 mt-1">
+                              <!-- Custom Mail SVG -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-dark" viewBox="0 0 32 32" fill=currentColor>
+                                <path d="M28,6H4C2.9,6,2,6.9,2,8v16c0,1.1,0.9,2,2,2h24c1.1,0,2-0.9,2-2V8C30,6.9,29.1,6,28,6z M28,8v0.2l-12,7.5l-12-7.5V8H28z
+                                  M4,24V10.5l11.4,7.1c0.3,0.2,0.6,0.3,0.9,0.3s0.6-0.1,0.9-0.3L28,10.5V24H4z"/>
+                              </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-detroit text-[#f4f0dd]  font-">Email us</h4>
+                                <a href="mailto:hello@thereelstore.com" class="font-detroit  text-[#f4f0dd] hover:text-[#f34f36]"> services@thereelstore.in
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-primary mr-4 mt-1">
+                              <!-- Instagram SVG Icon -->
+                              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-dark" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm8.75 2.25a.75.75 0 0 1 .75.75v1a.75.75 0 0 1-1.5 0v-1a.75.75 0 0 1 .75-.75ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Z"/>
+                              </svg>
+                            </div>
+                            <div>
+                              <h4 class="font-detroit text-[#f4f0dd] ">Follow us</h4>
+                              <a href="https://www.instagram.com/mohan_arilli/" target="_blank" class="font-detroit  text-[#f4f0dd] hover:text-[#f34f36]">@thereelstore</a>
+                            </div>
+                          </div>
+                        
+                        <div class="flex items-start">
+                            <div class="text-primary mr-4 mt-1">
+  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-dark" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true">
+    <path d="M68.913 48.908l-.048.126c.015-.038.027-.077.042-.115l.006-.011z"/>
+    <path d="M50.002 0C33.524 0 20 13.48 20 29.922c0 6.372 2.04 12.31 5.48 17.174l-.123-.192l19.206 33.198l.097.127c.774 1.01 1.54 1.824 2.467 2.437c.927.613 2.114 1 3.28.883c2.33-.234 3.684-1.844 4.935-3.54l.078-.105L76.594 43.87l.017-.03c.507-.915.874-1.838 1.188-2.732A29.578 29.578 0 0 0 80 29.922C80 13.48 66.48 0 50.002 0zm0 5C63.756 5 75 16.218 75 29.922a24.55 24.55 0 0 1-1.84 9.332l-.025.062l-.022.065c-.263.757-.549 1.444-.879 2.04L51.275 77.087c-.927 1.221-1.575 1.51-1.367 1.488c.107-.01.206.074-.023-.078c-.219-.145-.666-.57-1.196-1.246L29.63 44.3l-.067-.093C26.69 40.147 25 35.23 25 29.922C25 16.219 36.248 5 50.002 5zm0 7.85c-9.462 0-17.115 7.626-17.115 17.072c0 9.446 7.654 17.072 17.115 17.072c9.461 0 17.111-7.627 17.111-17.072c0-9.446-7.65-17.072-17.111-17.072zm0 5c6.817 0 12.111 5.285 12.111 12.072c0 6.787-5.293 12.072-12.111 12.072c-6.818 0-12.115-5.286-12.115-12.072c0-6.787 5.298-12.072 12.115-12.072z"/>
+    <path d="M34.006 69.057C19.88 71.053 10 75.828 10 82.857C10 92.325 26.508 100 50 100s40-7.675 40-17.143c0-7.029-9.879-11.804-24.004-13.8l-1.957 3.332C74.685 73.866 82 76.97 82 80.572c0 5.05-14.327 9.143-32 9.143c-17.673 0-32-4.093-32-9.143c-.001-3.59 7.266-6.691 17.945-8.174c-.645-1.114-1.294-2.226-1.94-3.341z"/>
+  </svg>
+</div>
+                              
+                            <div>
+                                <h4 class="font-detroit  text-[#f4f0dd] ">Based in</h4>
+                                <p class="font-detroit  text-[#f4f0dd] hover:text-[#f34f36]">Hyderabad, India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#home" aria-label="Go to Home section">
+                    <img src="assets/onlylogo.png" alt="The Reel Store Logo" class="w-24" />
+                </a>
+                    <p class="font-detroit text-[#f4f0dd] text-xs text-opacity-80">Cut by Creators! Scaled By Code!</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#contact" class="font-detroit text-[#f4f0dd] hover:text-[#f34f36]">Terms</a>
+                    <a href="#contact" class="font-detroit text-[#f4f0dd] hover:text-[#f34f36]">Privacy</a>
+                </div>
+            </div>
+            
+            <div class="font-detroit mt-12 pt-8 border-t border-gray-800 text-center text-[#f4f0dd] text-opacity-80 ">
+                <p>© 2025 The Reel Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+      
+       
+    </script>
+<!-- Youtube Slider Buttons  -->
+ <script>
+  const sliderTrack = document.getElementById('sliderTrack');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+    
+  function scrollAmount() {
+    return sliderTrack.clientWidth * 0.9; // Scroll 90% of visible width
+  }
+
+  function updateButtons() {
+    prevBtn.disabled = sliderTrack.scrollLeft <= 0;
+  nextBtn.disabled = sliderTrack.scrollLeft >= sliderTrack.scrollWidth - sliderTrack.clientWidth - 1;
+
+  // Optionally toggle class to hide buttons completely
+  prevBtn.classList.toggle('hidden-button', prevBtn.disabled);
+  nextBtn.classList.toggle('hidden-button', nextBtn.disabled);
+    
+  }
+
+  prevBtn.addEventListener('click', () => {
+    sliderTrack.scrollBy({
+      left: -scrollAmount(),
+      behavior: 'smooth'
+    });
+  });
+
+  nextBtn.addEventListener('click', () => {
+    sliderTrack.scrollBy({
+      left: scrollAmount(),
+      behavior: 'smooth'
+    });
+  });
+
+  // Update buttons during and after scrolling
+  sliderTrack.addEventListener('scroll', updateButtons);
+
+  // Update on load
+  window.addEventListener('load', updateButtons);
+</script>
+
+
+<!-- Instagram auto play pause -->
+<script>
+  const video = document.querySelectorAll('#videoSlider video');
+
+  videos.forEach(video => {
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.muted = true;
+    video.autoplay = true;
+
+    // On hover (desktop only)
+    video.addEventListener('mouseenter', () => {
+      videos.forEach(v => {
+        if (v !== video) {
+          v.pause();
+          v.muted = true;
+        }
+      });
+      video.muted = false;
+      video.play();
+    });
+
+    // On mouse leave
+    video.addEventListener('mouseleave', () => {
+      video.muted = true;
+      video.pause();
+    });
+
+    // Ensure mute & pause by default
+    video.pause();
+    video.muted = true;
+  });
+</script>
+
+
+<!-- Youtube iFrame API Loader for videos  -->
+
+<script>
+  // Load YouTube Iframe API
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+  let players = [];
+
+  function onYouTubeIframeAPIReady() {
+    document.querySelectorAll('.youtube-player').forEach((el, index) => {
+      const videoId = el.dataset.videoId;
+      const player = new YT.Player(el, {
+        videoId: videoId,
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          modestbranding: 1,
+          rel: 0,
+          showinfo: 0
+        },
+        events: {
+          onStateChange: (event) => {
+            if(event.data == YT.PlayerState.PLAYING) {
+              // Pause all other players except the one that just started playing
+              players.forEach(p => {
+                if(p !== event.target) {
+                  p.pauseVideo();
+                }
+              });
+            }
+          }
+        }
+      });
+      players.push(player);
+    });
+  }
+</script>
+
+<script>
+    window.addEventListener('load', () => {
+    const paginationDots = document.getElementById('videoPaginationDots');
+    const videoTiles = document.querySelectorAll('#sliderTrack .video-tile');
+
+    videoTiles.forEach((tile, idx) => {
+      const dot = document.createElement('button');
+      dot.className = 'w-3 h-3 rounded-full bg-white opacity-50 transition-opacity duration-300';
+      dot.addEventListener('click', () => {
+        tile.scrollIntoView({ behavior: 'smooth', inline: 'center' });
+        updateDots(idx);
+      });
+      paginationDots.appendChild(dot);
+    });
+
+    function updateDots(activeIndex) {
+      paginationDots.querySelectorAll('button').forEach((dot, idx) => {
+        dot.classList.toggle('opacity-100', idx === activeIndex);
+        dot.classList.toggle('opacity-50', idx !== activeIndex);
+      });
+    }
+
+    // Optional: set first dot as active
+    updateDots(0);
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"></script>
+  
+<!-- For Formspree -->
+
+<script>
+  const form = document.querySelector("#contactForm");
+  const phoneInput = document.querySelector("#phone");
+  const fullPhoneInput = document.querySelector("#full_phone");
+  const phoneError = document.querySelector("#phone-error");
+
+  const prefix = document.querySelector("#prefix");
+  const nameInput = document.querySelector("#nameInput");
+  const fullNameInput = document.querySelector("#full_name");
+
+  const iti = window.intlTelInput(phoneInput, {
+    initialCountry: "auto",
+    geoIpLookup: function (callback) {
+      fetch("https://ipinfo.io?token=<your-token>")
+        .then(res => res.json())
+        .then(data => callback(data.country))
+        .catch(() => callback("in"));
+    },
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+  });
+  phoneInput.addEventListener('blur', () => {
+  const selectedCountry = iti.getSelectedCountryData()?.iso2;
+  if (!selectedCountry || !phoneInput.value.trim()) {
+    iti.setCountry("in");
+  }
+});
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent default browser submit
+
+    // Validate phone
+    if (!iti.isValidNumber()) {
+      phoneError.textContent = "uh-oh! Enter a valid number!";
+      phoneError.classList.remove("hidden");
+      return;
+    }
+
+    // Set hidden values
+    fullPhoneInput.value = iti.getNumber(intlTelInputUtils.numberFormat.INTERNATIONAL);
+    fullNameInput.value = `${prefix.value} ${nameInput.value}`.trim();
+
+    //  manually submit using fetch
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        Accept: "application/json"
+      }
+    })
+      .then(response => {
+      if (response.ok) {
+    //   the thank-you popup
+    document.getElementById("successPopup").classList.remove("hidden");
+    document.getElementById("successPopup").classList.remove("hidden");
+    document.getElementById("successSound").play();
+    //  Redirect after 3 seconds
+    setTimeout(() => {
+      window.location.href = "https://thereelstore.in";
+    }, 3000);
+      } else {
+        //  Show error if Formspree returns failure
+        response.json().then(data => {
+          alert(data.message || "Oops! Something went wrong with submission.");
+        });
+      }
+    })
+    .catch(() => {
+      alert("Network error. Please check your connection and try again.");
+    });
+});
+</script>
+</body>
+</html>
